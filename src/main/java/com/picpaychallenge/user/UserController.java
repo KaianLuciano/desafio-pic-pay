@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController("User Controller")
@@ -27,5 +24,11 @@ public class UserController {
         var uri = ServletUriComponentsBuilder.fromCurrentRequest().path(String.valueOf(userDTO.getIdUser()))
                 .build().toUri();
         return ResponseEntity.created(uri).body(userDTO);
+    }
+
+    @Operation(summary = "Updates the user representing the given id", method = "PUT")
+    @PutMapping("/{idUser}")
+    public ResponseEntity<UserDTO> putUser(@PathVariable Long idUser, @Valid @RequestBody UserForm userForm) {
+        return ResponseEntity.ok(userService.update(idUser, userForm));
     }
 }
