@@ -31,4 +31,11 @@ public class UserController {
     public ResponseEntity<UserDTO> putUser(@PathVariable Long idUser, @Valid @RequestBody UserForm userForm) {
         return ResponseEntity.ok(userService.update(idUser, userForm));
     }
+
+    @Operation(summary = "Return the user representing the given id", method = "GET")
+    @GetMapping("/{idUser}")
+    public ResponseEntity<UserDTO> getClinicUnit(@PathVariable Long idUser) {
+        UserDTO userDTO = userService.readById(idUser);
+        return ResponseEntity.ok(userDTO);
+    }
 }
