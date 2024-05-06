@@ -2,6 +2,7 @@ package com.picpaychallenge.user.payload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.picpaychallenge.common.domain.model.valueobjects.document.Document;
+import com.picpaychallenge.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -26,6 +27,12 @@ public class UserDTO {
     private String email;
     @Enumerated(EnumType.STRING)
     private TypeUser typeUser;
+
+    public UserDTO(User user) {
+        this.document = user.getDocument();
+        this.email = user.getEmail();
+        this.typeUser = user.getTypeUser();
+    }
 
     @Override
     public boolean equals(Object o) {

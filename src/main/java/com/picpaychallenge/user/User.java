@@ -2,6 +2,7 @@ package com.picpaychallenge.user;
 
 import com.picpaychallenge.common.domain.model.valueobjects.document.Document;
 import com.picpaychallenge.user.payload.TypeUser;
+import com.picpaychallenge.user.payload.UserForm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,13 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private TypeUser typeUser;
+
+    public User(UserForm appointmentForm) {
+        this.document = appointmentForm.getDocument();
+        this.email = appointmentForm.getEmail();
+        this.password = appointmentForm.getPassword();
+        this.typeUser = appointmentForm.getTypeUser();
+    }
 
     @Override
     public boolean equals(Object o) {
