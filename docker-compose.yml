@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    container_name: postgresql-picpay-challenge
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: picpay-challenge
+    ports:
+      - "5432:5432"
