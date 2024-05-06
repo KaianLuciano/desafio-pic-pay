@@ -1,4 +1,10 @@
 package com.picpaychallenge.user;
 
+import com.picpaychallenge.user.payload.UserDTO;
+import com.picpaychallenge.user.payload.UserForm;
+
+import java.util.Collection;
+
 public interface UserService {
+    UserDTO create(UserForm appointmentForm);
 }
