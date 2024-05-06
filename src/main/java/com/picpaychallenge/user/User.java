@@ -43,6 +43,12 @@ public class User {
         this.typeUser = appointmentForm.getTypeUser();
     }
 
+    public void update(UserForm userForm) {
+        this.document = userForm.getDocument();
+        this.email = userForm.getEmail();
+        this.password = userForm.getPassword();
+        this.typeUser = userForm.getTypeUser();    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

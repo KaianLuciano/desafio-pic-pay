@@ -6,5 +6,6 @@ import com.picpaychallenge.user.payload.UserForm;
 import java.util.Collection;
 
 public interface UserService {
-    UserDTO create(UserForm appointmentForm);
+    UserDTO create(UserForm userForm);
+    UserDTO update(Long idUser, UserForm userForm);
 }

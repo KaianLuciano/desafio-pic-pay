@@ -15,9 +15,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public UserDTO create(UserForm appointmentForm) {
-        User user = new User(appointmentForm);
+    public UserDTO create(UserForm userForm) {
+        User user = new User(userForm);
 
+        return new UserDTO(userRepository.save(user));
+    }
+
+    @Override
+    public UserDTO update(Long idUser, UserForm userForm) {
+        User user = userRepository.findById(idUser).orElseThrow();
+        user.update(userForm);
         return new UserDTO(userRepository.save(user));
     }
 }
