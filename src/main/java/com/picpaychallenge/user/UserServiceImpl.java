@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService{
         user.update(userForm);
         return new UserDTO(userRepository.save(user));
     }
+
+    @Override
+    public UserDTO readById(Long idUser) {
+        return userRepository.findById(idUser).map(UserDTO::new).orElseThrow();
+    }
 }
