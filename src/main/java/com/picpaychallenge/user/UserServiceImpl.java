@@ -1,5 +1,7 @@
 package com.picpaychallenge.user;
 
+import com.picpaychallenge.common.domain.config.exception.erros.ResourceNotFoundException;
+import com.picpaychallenge.common.domain.config.exception.messageerror.MessageError;
 import com.picpaychallenge.user.payload.UserDTO;
 import com.picpaychallenge.user.payload.UserForm;
 import com.picpaychallenge.user.payload.UserRepository;
@@ -23,13 +25,15 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO update(Long idUser, UserForm userForm) {
-        User user = userRepository.findById(idUser).orElseThrow();
+        User user = userRepository.findById(idUser)
+                .orElseThrow(() -> new ResourceNotFoundException(MessageError.USER_NOT_FOUND));
         user.update(userForm);
         return new UserDTO(userRepository.save(user));
     }
 
     @Override
     public UserDTO readById(Long idUser) {
-        return userRepository.findById(idUser).map(UserDTO::new).orElseThrow();
+        return userRepository.findById(idUser).map(UserDTO::new)
+                .orElseThrow(() -> new ResourceNotFoundException(MessageError.USER_NOT_FOUND));
     }
 }
