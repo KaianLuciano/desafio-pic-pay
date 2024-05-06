@@ -1,14 +1,13 @@
 package com.picpaychallenge.common.domain.model.valueobjects.document;
 
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
-@MappedSuperclass
 @Getter
 @Setter
-public abstract class Document {
+@Embeddable
+public class Document {
 
     protected String value;
 

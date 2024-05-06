@@ -25,6 +25,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
+    @Embedded
     @Column(unique = true)
     private Document document;
     @Email
