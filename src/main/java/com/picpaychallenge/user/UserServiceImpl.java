@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -35,5 +37,10 @@ public class UserServiceImpl implements UserService{
     public UserDTO readById(Long idUser) {
         return userRepository.findById(idUser).map(UserDTO::new)
                 .orElseThrow(() -> new ResourceNotFoundException(MessageError.USER_NOT_FOUND));
+    }
+
+    @Override
+    public List<UserDTO> readAll() {
+        return userRepository.findAll().stream().map(UserDTO::new).toList();
     }
 }
