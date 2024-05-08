@@ -2,11 +2,11 @@ version: '3'
 
 services:
   db:
-    container_name: postgresql-picpay-challenge
     image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: picpay-challenge
+    restart: always
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: picpay-challange
