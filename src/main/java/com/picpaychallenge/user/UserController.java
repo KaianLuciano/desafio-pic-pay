@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
+
 @RestController("User Controller")
 @RequestMapping("${picpay.challenge.base.path}/${picpay.challenge.base.version}/clinic-units")
 @RequiredArgsConstructor
@@ -30,6 +32,13 @@ public class UserController {
     @PutMapping("/{idUser}")
     public ResponseEntity<UserDTO> putUser(@PathVariable Long idUser, @Valid @RequestBody UserForm userForm) {
         return ResponseEntity.ok(userService.update(idUser, userForm));
+    }
+
+    @Operation(summary = "Return all users", method = "GET")
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllClinicUnit() {
+        List<UserDTO> userDTOS = userService.readAll();
+        return ResponseEntity.ok(userDTOS);
     }
 
     @Operation(summary = "Return the user representing the given id", method = "GET")
