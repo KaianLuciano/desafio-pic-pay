@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService{
     public Page<UserDTO> readAll(Pageable pageable) {
         return userRepository.findAll(pageable).map(UserDTO::new);
     }
+
+    @Override
+    public void deleteUserById(Long idUser) {
+        userRepository.deleteById(idUser);
+    }
 }

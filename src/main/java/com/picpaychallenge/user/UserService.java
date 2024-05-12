@@ -12,4 +12,5 @@ public interface UserService {
     UserDTO update(Long idUser, UserForm userForm);
     UserDTO readById(Long idUser);
     Page<UserDTO> readAll(Pageable pageable);
+    void deleteUserById(Long idUser);
 }
