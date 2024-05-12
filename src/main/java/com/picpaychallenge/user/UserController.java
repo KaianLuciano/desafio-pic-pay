@@ -6,6 +6,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -36,8 +39,8 @@ public class UserController {
 
     @Operation(summary = "Return all users", method = "GET")
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllClinicUnit() {
-        List<UserDTO> userDTOS = userService.readAll();
+    public ResponseEntity<Page<UserDTO>> getAllClinicUnit(@PageableDefault Pageable pageable) {
+        Page<UserDTO> userDTOS = userService.readAll(pageable);
         return ResponseEntity.ok(userDTOS);
     }
 

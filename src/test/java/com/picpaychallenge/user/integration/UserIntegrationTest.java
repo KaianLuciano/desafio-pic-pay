@@ -3,6 +3,7 @@ package com.picpaychallenge.user.integration;
 import com.picpaychallenge.common.domain.model.valueobjects.cnpj.CNPJConverter;
 import com.picpaychallenge.common.domain.model.valueobjects.cpf.CPFConverter;
 import com.picpaychallenge.common.domain.model.valueobjects.document.Document;
+import com.picpaychallenge.common.domain.utils.JsonConverter;
 import com.picpaychallenge.user.UserService;
 import com.picpaychallenge.user.factory.UserFactory;
 import com.picpaychallenge.user.payload.UserDTO;
@@ -18,12 +19,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.PostgreSQLContainer;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -120,5 +125,26 @@ public class UserIntegrationTest {
                     .then()
                     .log().all()
                     .statusCode(HttpStatus.NOT_FOUND.value());
+        }
+
+        @Test
+        void testGetAllUsers() {
+            UserDTO userDTO = UserFactory.getUserDTOForPost();
+            UserDTO userSaved = userService.create(UserFactory.getUserFormForPost());
+            userDTO.setIdUser(userSaved.getIdUser());
+            String userExpected = JsonConverter.asJson(new PageImpl<>(
+                    List.of(userDTO),
+                    PageRequest.of(0, 10),
+                    1)
+            );
+
+            given()
+                    .contentType(ContentType.JSON)
+                    .when()
+                    .get("http://localhost:" + port + "/api/v1/users")
+                    .then()
+                    .log().all()
+                    .statusCode(HttpStatus.OK.value())
+                    .body(equalTo(userExpected));
         }
 }
