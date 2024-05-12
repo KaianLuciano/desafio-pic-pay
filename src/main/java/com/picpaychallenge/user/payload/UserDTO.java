@@ -29,6 +29,7 @@ public class UserDTO {
     private TypeUser typeUser;
 
     public UserDTO(User user) {
+        this.idUser = user.getIdUser();
         this.document = user.getDocument();
         this.email = user.getEmail();
         this.typeUser = user.getTypeUser();

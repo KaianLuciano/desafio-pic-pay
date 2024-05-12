@@ -18,8 +18,8 @@ public class UserFactory {
     public static UserDTO getUserDTOForPut() {
         UserDTO userDTO = new UserDTO();
         userDTO.setTypeUser(TypeUser.COMMON);
-        userDTO.setDocument(new CPF("12345678901"));
-        userDTO.setEmail("test@gmail.com");
+        userDTO.setDocument(new CPF("987654321"));
+        userDTO.setEmail("testupdate@gmail.com");
         return userDTO;
     }
 
