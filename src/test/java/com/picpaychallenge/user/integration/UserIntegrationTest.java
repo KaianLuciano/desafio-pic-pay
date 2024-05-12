@@ -3,6 +3,7 @@ package com.picpaychallenge.user.integration;
 import com.picpaychallenge.common.domain.model.valueobjects.cnpj.CNPJConverter;
 import com.picpaychallenge.common.domain.model.valueobjects.cpf.CPFConverter;
 import com.picpaychallenge.common.domain.model.valueobjects.document.Document;
+import com.picpaychallenge.common.domain.model.valueobjects.document.DocumentConverter;
 import com.picpaychallenge.common.domain.utils.JsonConverter;
 import com.picpaychallenge.user.UserService;
 import com.picpaychallenge.user.factory.UserFactory;
@@ -44,10 +45,8 @@ public class UserIntegrationTest {
         private UserRepository userRepository;
         @Autowired
         private UserService userService;
-        private final RestTemplate restTemplate = new RestTemplate();
-        private final CPFConverter cpfConverter = new CPFConverter();
-        private final CNPJConverter cnpjConverter = new CNPJConverter();
-        private final Document document = new Document();
+        private final DocumentConverter documentConverterCPF = new CPFConverter();
+        private final DocumentConverter documentConverterCNPJ = new CPFConverter();
         @LocalServerPort
         private Integer port;
 
@@ -94,7 +93,7 @@ public class UserIntegrationTest {
                     .log().all()
                     .statusCode(HttpStatus.CREATED.value())
                     .body("typeUser", equalTo(userDTO.getTypeUser().toString()))
-                    .body("document.value", equalTo(cnpjConverter.convertToDatabaseColumn(userDTO.getDocument())))
+                    .body("document.value", equalTo(documentConverterCPF.convertToDatabaseColumn(userDTO.getDocument())))
                     .body("email", equalTo(userDTO.getEmail()));
         }
 
@@ -111,7 +110,7 @@ public class UserIntegrationTest {
                     .log().all()
                     .statusCode(HttpStatus.OK.value())
                     .body("typeUser", equalTo(userDTO.getTypeUser().toString()))
-                    .body("document.value", equalTo(cnpjConverter.convertToDatabaseColumn(userDTO.getDocument())))
+                    .body("document.value", equalTo(documentConverterCPF.convertToDatabaseColumn(userDTO.getDocument())))
                     .body("email", equalTo(userDTO.getEmail()));
         }
 
