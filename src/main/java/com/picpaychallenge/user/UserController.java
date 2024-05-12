@@ -55,7 +55,7 @@ public class UserController {
     @Operation(summary = "Delete the user representing the given id", method = "DELETE")
     @DeleteMapping("/{idUser}")
     public ResponseEntity<String> deleteUser(@PathVariable Long idUser) {
-        UserDTO userDTO = userService.deleteUserById(idUser);
+        userService.deleteUserById(idUser);
         return ResponseEntity.status(HttpStatus.OK).body("User deleted");
     }
 }
