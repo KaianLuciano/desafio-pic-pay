@@ -3,10 +3,9 @@ version: '3'
 services:
   db:
     image: postgres
-    restart: always
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: picpay_challenge
+    ports:
+      - "5432:5432"
