@@ -13,7 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 
 @RestController("User Controller")
-@RequestMapping("${picpay.challenge.base.path}/${picpay.challenge.base.version}/clinic-units")
+@RequestMapping("${picpay.challenge.base.path}/${picpay.challenge.base.version}/users")
 @RequiredArgsConstructor
 @Tag(name = "User")
 public class UserController {
