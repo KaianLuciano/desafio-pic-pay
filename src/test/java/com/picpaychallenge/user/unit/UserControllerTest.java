@@ -20,6 +20,7 @@ import java.util.Objects;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,6 +47,22 @@ public class UserControllerTest {
                         .content(Objects.requireNonNull(JsonConverter.asJson(UserFactory.getUserFormForPost()))))
                 .andDo(print())
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.idUser").exists())
+                .andExpect(jsonPath("$.document.value").value(userDTO.getDocument().getValue()))
+                .andExpect(jsonPath("$.email").value(userDTO.getEmail()))
+                .andExpect(jsonPath("$.typeUser").value(userDTO.getTypeUser().name()));
+    }
+
+    @Test
+    @DisplayName("User Controller Update method should return Success")
+    void testPutUser() throws Exception {
+        UserDTO userDTO = UserFactory.getUserDTOUnitTest();
+        when(userService.update(any(), any())).thenReturn(userDTO);
+        mvc.perform(put("/api/v1/users/1")
+                        .contentType("application/json")
+                        .content(Objects.requireNonNull(JsonConverter.asJson(UserFactory.getUserFormForPut()))))
+                .andDo(print())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.idUser").exists())
                 .andExpect(jsonPath("$.document.value").value(userDTO.getDocument().getValue()))
                 .andExpect(jsonPath("$.email").value(userDTO.getEmail()))
