@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,15 +40,22 @@ public class UserController {
 
     @Operation(summary = "Return all users", method = "GET")
     @GetMapping
-    public ResponseEntity<Page<UserDTO>> getAllClinicUnit(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<UserDTO>> getAllUser(@PageableDefault Pageable pageable) {
         Page<UserDTO> userDTOS = userService.readAll(pageable);
         return ResponseEntity.ok(userDTOS);
     }
 
     @Operation(summary = "Return the user representing the given id", method = "GET")
     @GetMapping("/{idUser}")
-    public ResponseEntity<UserDTO> getClinicUnit(@PathVariable Long idUser) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long idUser) {
         UserDTO userDTO = userService.readById(idUser);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @Operation(summary = "Delete the user representing the given id", method = "DELETE")
+    @DeleteMapping("/{idUser}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long idUser) {
+        UserDTO userDTO = userService.deleteUserById(idUser);
+        return ResponseEntity.status(HttpStatus.OK).body("User deleted");
     }
 }
