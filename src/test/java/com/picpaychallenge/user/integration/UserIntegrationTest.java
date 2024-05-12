@@ -121,7 +121,7 @@ public class UserIntegrationTest {
                     .contentType(ContentType.JSON)
                     .body(UserFactory.getUserFormForPut())
                     .when()
-                    .put("http://localhost:" + port + "/api/v1/users/" + 999999999)
+                    .put("http://localhost:" + port + "/api/v1/users/" + 999999999L)
                     .then()
                     .log().all()
                     .statusCode(HttpStatus.NOT_FOUND.value());
@@ -181,6 +181,17 @@ public class UserIntegrationTest {
                 .contentType(ContentType.JSON)
                 .when()
                 .delete("http://localhost:" + port + "/api/v1/users/" + userSaved.getIdUser())
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    void testDeleteUserByIdNotFound() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("http://localhost:" + port + "/api/v1/users/" + 9999999999L)
                 .then()
                 .log().all()
                 .statusCode(HttpStatus.OK.value());
