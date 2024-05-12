@@ -173,4 +173,16 @@ public class UserIntegrationTest {
                 .log().all()
                 .statusCode(HttpStatus.NOT_FOUND.value());
     }
+
+    @Test
+    void testDeleteUserById() {
+        UserDTO userSaved = userService.create(UserFactory.getUserFormForPost());
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("http://localhost:" + port + "/api/v1/users/" + userSaved.getIdUser())
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.OK.value());
+    }
 }
