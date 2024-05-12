@@ -78,7 +78,7 @@ public class UserIntegrationTest {
         }
 
         @Test
-        void shouldPostUser() {
+        void testPostUser() {
             UserDTO userDTO = UserFactory.getUserDTOForPost();
             given()
                     .contentType(ContentType.JSON)
@@ -94,7 +94,7 @@ public class UserIntegrationTest {
         }
 
         @Test
-        void shouldPutUser() {
+        void testPutUser() {
             UserDTO userDTO = UserFactory.getUserDTOForPut();
             UserDTO userSaved = userService.create(UserFactory.getUserFormForPost());
             given()
@@ -108,5 +108,17 @@ public class UserIntegrationTest {
                     .body("typeUser", equalTo(userDTO.getTypeUser().toString()))
                     .body("document.value", equalTo(cnpjConverter.convertToDatabaseColumn(userDTO.getDocument())))
                     .body("email", equalTo(userDTO.getEmail()));
+        }
+
+        @Test
+        void testPutNotFoundUser() {
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(UserFactory.getUserFormForPut())
+                    .when()
+                    .put("http://localhost:" + port + "/api/v1/users/" + 999999999)
+                    .then()
+                    .log().all()
+                    .statusCode(HttpStatus.NOT_FOUND.value());
         }
 }
