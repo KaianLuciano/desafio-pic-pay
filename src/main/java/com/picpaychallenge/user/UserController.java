@@ -40,7 +40,7 @@ public class UserController {
 
     @Operation(summary = "Return all users", method = "GET")
     @GetMapping
-    public ResponseEntity<Page<UserDTO>> getAllUser(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<UserDTO>> getAllUsers(@PageableDefault Pageable pageable) {
         Page<UserDTO> userDTOS = userService.readAll(pageable);
         return ResponseEntity.ok(userDTOS);
     }
