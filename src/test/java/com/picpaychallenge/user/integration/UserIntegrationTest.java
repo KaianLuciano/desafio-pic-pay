@@ -147,4 +147,19 @@ public class UserIntegrationTest {
                     .statusCode(HttpStatus.OK.value())
                     .body(equalTo(userExpected));
         }
+
+        @Test
+        void testGetUserById() {
+            UserDTO userDTO = UserFactory.getUserDTOForPost();
+            UserDTO userSaved = userService.create(UserFactory.getUserFormForPost());
+            userDTO.setIdUser(userSaved.getIdUser());
+            given()
+                    .contentType(ContentType.JSON)
+                    .when()
+                    .get("http://localhost:" + port + "/api/v1/users/" + userSaved.getIdUser())
+                    .then()
+                    .log().all()
+                    .statusCode(HttpStatus.OK.value())
+                    .body(equalTo(JsonConverter.asJson(userDTO)));
+        }
 }
