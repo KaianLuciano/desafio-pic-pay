@@ -162,4 +162,15 @@ public class UserIntegrationTest {
                     .statusCode(HttpStatus.OK.value())
                     .body(equalTo(JsonConverter.asJson(userDTO)));
         }
+
+    @Test
+    void testGetUserByIdNotFound() {
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("http://localhost:" + port + "/api/v1/users/" + 9999999999L)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
 }
