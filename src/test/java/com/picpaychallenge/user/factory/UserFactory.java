@@ -7,6 +7,15 @@ import com.picpaychallenge.user.payload.UserForm;
 
 public class UserFactory {
 
+    public static UserDTO getUserDTOUnitTest() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setIdUser(1L);
+        userDTO.setTypeUser(TypeUser.COMMON);
+        userDTO.setDocument(new CPF("12345678901"));
+        userDTO.setEmail("test@gmail.com");
+        return userDTO;
+    }
+
     public static UserDTO getUserDTOForPost() {
         UserDTO userDTO = new UserDTO();
         userDTO.setTypeUser(TypeUser.COMMON);
