@@ -1,5 +1,7 @@
 package com.picpaychallenge.transaction;
 
-public interface TransactionService {
+import java.util.List;
 
+public interface TransactionService {
+    List<Transaction> getAllTransactions();
 }
