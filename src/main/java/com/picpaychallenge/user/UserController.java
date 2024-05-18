@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
-
 @RestController("User Controller")
 @RequestMapping("${picpay.challenge.base.path}/${picpay.challenge.base.version}/users")
 @RequiredArgsConstructor

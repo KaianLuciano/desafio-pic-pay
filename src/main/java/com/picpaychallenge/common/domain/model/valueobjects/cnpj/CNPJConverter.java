@@ -2,7 +2,6 @@ package com.picpaychallenge.common.domain.model.valueobjects.cnpj;
 
 import com.picpaychallenge.common.domain.model.valueobjects.document.Document;
 import com.picpaychallenge.common.domain.model.valueobjects.document.DocumentConverter;
-import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 @Converter

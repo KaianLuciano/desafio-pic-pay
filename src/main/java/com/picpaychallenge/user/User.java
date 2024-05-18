@@ -12,7 +12,6 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
-import java.lang.reflect.Type;
 import java.util.Objects;
 
 
