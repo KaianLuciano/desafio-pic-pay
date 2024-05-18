@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 
@@ -26,10 +27,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
+    private Long userId;
     @Embedded
     @Column(unique = true)
     private Document document;
+    private BigDecimal balance;
     @Email
     @Column(unique = true)
     private String email;
@@ -54,18 +56,18 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(idUser, user.idUser);
+        return Objects.equals(userId, user.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(idUser);
+        return Objects.hashCode(userId);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("idUser", idUser)
+                .append("idUser", userId)
                 .append("document", document)
                 .append("email", email)
                 .append("password", password)
