@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class TransactionServiceImpl implements TransactionService {
     private RestTemplate restTemplate;
     @Value("${mock.notification.url}")
     private String notificationServiceUrl;
+    @Value("${mock.authorization.url}")
+    private String authorizationServiceUrl;
 
     @Override
     public List<Transaction> getAllTransactions() {
@@ -43,4 +46,17 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    public void authorizeTransaction() {
+        try {
+            ResponseEntity<String> responseEntity = this.restTemplate.getForEntity(authorizationServiceUrl, String.class);
+
+            if (responseEntity.getStatusCode().value() == 200) {
+                log.info("Transaction authorized.");
+            } else {
+                throw new Exception.AuthorizationException();
+            }
+        } catch (RestClientException e) {
+            throw new Exception.AuthorizationException();
+        }
+    }
 }
